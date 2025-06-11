@@ -1,0 +1,17 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Installing dependencies...
+      - dotnet restore ResearchScraper/ResearchScraper.csproj
+
+  build:
+    commands:
+      - echo Building...
+      - dotnet publish ResearchScraper/ResearchScraper.csproj -c Release -o ./publish
+
+artifacts:
+  files:
+    - '**/*'
+  base-directory: publish
