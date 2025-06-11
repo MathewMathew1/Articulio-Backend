@@ -1,0 +1,6 @@
+@ResearchScraper_HostAddress = http://localhost:5012
+
+GET {{ResearchScraper_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
