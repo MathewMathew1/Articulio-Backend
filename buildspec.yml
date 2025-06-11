@@ -1,17 +1,13 @@
 version: 0.2
 
 phases:
-  install:
+  pre_build:
     commands:
-      - echo Installing dependencies...
-      - dotnet restore ResearchScraper/ResearchScraper.csproj
-
+      - echo Logging in to Amazon ECR (optional, if pushing)
   build:
     commands:
-      - echo Building...
-      - dotnet publish ResearchScraper/ResearchScraper.csproj -c Release -o ./publish
-
+      - echo Building Docker image...
+      - docker build -t researchscraper:latest .
 artifacts:
   files:
     - '**/*'
-  base-directory: publish
