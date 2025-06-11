@@ -15,4 +15,6 @@ phases:
       - echo Pushing the Docker image to ECR...
       - docker push 804078307410.dkr.ecr.us-east-1.amazonaws.com/articulio:latest
 artifacts:
-  files: []
+  files:
+    - Dockerrun.aws.json
+  name: BuildArtifact
