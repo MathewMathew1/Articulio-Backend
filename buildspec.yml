@@ -3,11 +3,16 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - echo Logging in to Amazon ECR (optional, if pushing)
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 804078307410.dkr.ecr.us-east-1.amazonaws.com
   build:
     commands:
-      - echo Building Docker image...
-      - docker build -t researchscraper:latest .
+      - echo Building the Docker image...
+      - docker build -t articulio:latest .
+      - docker tag articulio:latest 804078307410.dkr.ecr.us-east-1.amazonaws.com/articulio:latest
+  post_build:
+    commands:
+      - echo Pushing the Docker image to ECR...
+      - docker push 804078307410.dkr.ecr.us-east-1.amazonaws.com/articulio:latest
 artifacts:
-  files:
-    - '**/*'
+  files: []
