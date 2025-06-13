@@ -16,7 +16,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("DevCors", policy =>
     {
         policy.WithOrigins("http://localhost:4200")
-                  .AllowCredentials()
+
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials();
@@ -144,6 +144,17 @@ if (app.Environment.IsDevelopment())
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Research Scrapper API V1");
     });
+}
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
+
+app.UseRouting();
+
+if (app.Environment.IsDevelopment())
+{
     app.UseCors("DevCors");
 }
 else
@@ -151,10 +162,6 @@ else
     app.UseCors("ProdCors");
 }
 
-if (!app.Environment.IsDevelopment())
-{
-    app.UseHttpsRedirection();
-}
 app.UseMiddleware<JwtMiddleware>();
 app.UseMiddleware<RequestLoggingMiddleware>();
 
@@ -165,5 +172,6 @@ app.MapControllers();
 app.MapHealthChecks("/health");
 
 app.Run();
+
 
 
